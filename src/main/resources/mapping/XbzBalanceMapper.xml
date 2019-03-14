@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="XbzBalance">
+    <resultMap id="BaseResultMap" type="com.xbz.vpase.persistent.entity.XbzBalance">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="source_id" jdbcType="INTEGER" property="sourceId" />
+        <result column="user_id" jdbcType="INTEGER" property="userId" />
+        <result column="price" jdbcType="DECIMAL" property="price" />
+        <result column="style" jdbcType="SMALLINT" property="style" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="enable" jdbcType="BIT" property="enable" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, source_id, user_id, price, style, create_time,enable
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from xbz_balance
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from xbz_balance
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.xbz.vpase.persistent.entity.XbzBalance">
+    insert into xbz_balance (id, source_id, user_id,
+      price, style, create_time,enable
+      )
+    values (#{id,jdbcType=BIGINT}, #{sourceId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+      #{price,jdbcType=DECIMAL}, #{style,jdbcType=SMALLINT}, #{createTime,jdbcType=TIMESTAMP},
+      #{enable,jdbcType=BIT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xbz.vpase.persistent.entity.XbzBalance">
+        insert into xbz_balance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sourceId != null">
+                source_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="style != null">
+                style,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="enable != null">
+                enable,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="sourceId != null">
+                #{sourceId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="style != null">
+                #{style,jdbcType=SMALLINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enable != null">
+                #{enable,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xbz.vpase.persistent.entity.XbzBalance">
+        update xbz_balance
+        <set>
+            <if test="sourceId != null">
+                source_id = #{sourceId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="style != null">
+                style = #{style,jdbcType=SMALLINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enable != null">
+                enable = #{enable,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xbz.vpase.persistent.entity.XbzBalance">
+    update xbz_balance
+    set source_id = #{sourceId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      style = #{style,jdbcType=SMALLINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      enable = #{enable,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+    <select id="selectXbzBalanceByUserIdList" resultMap="BaseResultMap" parameterType="com.xbz.vpase.request.XbzBalanceRequest">
+        select <include refid="Base_Column_List"/> from xbz_balance
+        <where>
+            <if test="sourceId!=null">
+                and source_id = #{sourceId}
+            </if>
+            <if test="userId!=null">
+                and user_id = #{userId}
+            </if>
+            <if test="style!=null">
+                and style = #{style}
+            </if>
+            <if test="startDate!=null">
+                and create_time &gt;= #{startDate}
+            </if>
+            <if test="endDate!=null">
+                and create_time &lt;= #{endDate}
+            </if>
+            <if test="enable!=null">
+                and enable = #{enable}
+            </if>
+        </where>
+        <if test="start!=null and end!=null">
+            limit #{start},#{end}
+        </if>
+    </select>
+
+    <select id="selectXbzBalanceByUserIdCount" resultType="int" parameterType="com.xbz.vpase.request.XbzBalanceRequest">
+        select count(1) from xbz_balance
+        <where>
+            <if test="sourceId!=null">
+                and source_id = #{sourceId}
+            </if>
+            <if test="userId!=null">
+                and user_id = #{userId}
+            </if>
+            <if test="style!=null">
+                and style = #{style}
+            </if>
+            <if test="startDate!=null">
+                and create_time &gt;=#{startDate}
+            </if>
+            <if test="endDate!=null">
+                and create_time &lt;=#{endDate}
+            </if>
+            <if test="enable!=null">
+                and enable = #{enable}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectXbzBalanceGroupByUserList" resultMap="BaseResultMap" parameterType="com.xbz.vpase.request.XbzBalanceRequest">
+        select user_id,SUM(IFNULL(price,0.0)) price from xbz_balance
+        <where>
+            <if test="sourceId!=null">
+                and source_id = #{sourceId}
+            </if>
+            <if test="userId!=null">
+                and user_id = #{userId}
+            </if>
+            <if test="style!=null">
+                and style = #{style}
+            </if>
+            <if test="startDate!=null">
+                and create_time &gt;=#{startDate}
+            </if>
+            <if test="endDate!=null">
+                and create_time &lt;=#{endDate}
+            </if>
+            <if test="enable!=null">
+                and enable = #{enable}
+            </if>
+        </where>
+        GROUP BY user_id
+        <if test="start!=null and end!=null">
+            limit #{start},#{end}
+        </if>
+    </select>
+
+    <select id="selectXbzBalanceGroupByUserCount" resultMap="BaseResultMap" parameterType="com.xbz.vpase.request.XbzBalanceRequest">
+        SELECT COUNT(1) from (
+        select user_id,SUM(IFNULL(price,0.0)) price from xbz_balance
+        <where>
+            <if test="sourceId!=null">
+                and source_id = #{sourceId}
+            </if>
+            <if test="userId!=null">
+                and user_id = #{userId}
+            </if>
+            <if test="style!=null">
+                and style = #{style}
+            </if>
+            <if test="startDate!=null">
+                and create_time &gt;=#{startDate}
+            </if>
+            <if test="endDate!=null">
+                and create_time &lt;=#{endDate}
+            </if>
+            <if test="enable!=null">
+                and enable = #{enable}
+            </if>
+        </where>
+        GROUP BY user_id) balance
+    </select>
+</mapper>
