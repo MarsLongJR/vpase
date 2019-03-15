@@ -13,12 +13,13 @@ public interface SysUserService extends BaseService<SysUser> {
 
     //新增用户的验证码
     void insertUserCode(String phone, String code);
-    //根据用户查找用户账户
+    //根据用户查找用户账户(查询重复)
     SysUser queryUserByPhone(String phone);
     //更新用户的密码
     void updateUserPwd(String account, String md5);
     //删除用户的验证码
     void cleanCaptcha(String account);
 
+    //注册
     int insertUser(SysUser sysUser);
 }

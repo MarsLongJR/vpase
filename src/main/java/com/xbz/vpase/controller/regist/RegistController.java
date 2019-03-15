@@ -22,10 +22,26 @@ public class RegistController {
    @Autowired
     private SysUserService sysUserService;
 
+   @RequestMapping("getCheckUser_allow")
+   @ResponseBody
+    public ResultJson queryUserByPhone(String phone){
+       SysUser sysUser=sysUserService.queryUserByPhone(phone);
+       ResultJson resultJson=new ResultJson();
+       if(sysUser==null){
+           resultJson.ResultJson(RetCode.OK);
+           resultJson.setMessage("该账号已存在");
+           return resultJson;
+       }
+        resultJson.ResultJson(RetCode.OK);
+        resultJson.setMessage("该账号可以注册");
+        return resultJson;
+   }
+
+
     /**
      * 注册
      * @param sysUser
-     * @return result
+     * @return
      */
     @RequestMapping("getRegist_allow")
     @ResponseBody

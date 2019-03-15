@@ -20,6 +20,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
         super.setBaseDao(sysUserDao);
     }
 
+
     /**
      * 注册用户
      * @param sysUser 用户对象
@@ -30,12 +31,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
         //没有添加参数
         if(sysUser.isEmpty()){
             return 0;
-        }
-        //检查重复
-        int result=sysUserDao.checkUser(sysUser.getAccount());
-        if(result == 1){
-            return 0;
-        }else {
+        } else{
             String password = MD5.getMD5(sysUser.getPassword());
             sysUser.setPassword(password);
             int count = sysUserDao.save(sysUser);
@@ -45,7 +41,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
             throw new RuntimeException("添加用户信息失败：service");
         }
     }
-
+    //查询重复
     @Override
     public SysUser queryUserByPhone(String phone) {
         return sysUserDao.queryUserByPhone(phone);

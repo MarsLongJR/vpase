@@ -1,9 +1,11 @@
 package com.xbz.vpase.persistent.entity;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
+@Data
 public class SysMenu implements Serializable {
     private Integer id;
 

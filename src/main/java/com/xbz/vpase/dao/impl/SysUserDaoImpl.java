@@ -22,8 +22,8 @@ public class SysUserDaoImpl extends BaseDaoImpl<SysUser> implements SysUserDao {
 
     //注册查询重复
     @Override
-    public int checkUser(String account) {
-        return sqlSessionTemplate.selectOne("SysUser.checkUser",account);
+    public int checkUser(String phone) {
+        return sqlSessionTemplate.selectOne("SysUser.checkUser",phone);
     }
 
     @Override

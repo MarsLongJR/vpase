@@ -1,6 +1,7 @@
 package com.xbz.vpase.persistent.entity;
 
 import com.xbz.vpase.authorities.UserInfo;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;

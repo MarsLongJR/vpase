@@ -309,10 +309,6 @@
     select <include refid="Base_Column_List" /> from sys_user where open_id = #{openId}
   </select>
 
-    <!--查询用户是否重复-->
-    <select id="checkUser" parameterType="String" resultMap="BaseResultMap">
-    select <include refid="Base_Column_List" />  from sys_user where account = #{account}
-  </select>
     <!--查询是否有原账户-->
     <select id="queryUserByPhone" parameterType="String" resultMap="BaseResultMap">
       select <include refid="Base_Column_List" /> from sys_user where phone=#{phone}

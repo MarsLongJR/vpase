@@ -10,6 +10,8 @@ import com.xbz.vpase.wechat.entity.Constants;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.jms.Session;
+import javax.servlet.SessionTrackingMode;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +55,8 @@ public class WxPayControllerSource {
                 resultJson.setMessage("金额数不能为0");
                 return resultJson;
             }
+
+
             try {
                 intMoney = (int) (Double.valueOf(money) * 100);
             } catch (Exception e) {
